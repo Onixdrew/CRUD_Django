@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title> form Genero</title>
+</head>
+<body>
+    <div class="w-full max-w-xs m-[30%] mt-[10%]">
+        <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="agregarGenero/">
+          <div class="mb-4">
+            <label class="block ml-[35%] text-xl text-gray-700 text-sm font-bold mb-2" for="username">
+              Genero
+            </label>
+            <input name="newGenero" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Agrega el nuevo genero">
+          </div>
+
+          <div class="flex items-center justify-between">
+            <button  class="bg-blue-500 mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+               Guardar
+            </button>
+            
+          </div>
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+          &copy;2020 Acme Corp. All rights reserved.
+        </p>
+    </div>
+
+    <h1>{{mensaje}}</h1>
+</body>
+</html>

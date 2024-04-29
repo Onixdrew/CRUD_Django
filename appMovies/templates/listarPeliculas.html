@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tabla Peliculas</title>
+</head>
+<body>
+    
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[8%]  ">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-center  text-gray-700 uppercase dark:text-gray-400">
+            <tr class="text-lg border border-black">
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                    codigo
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    titulo
+                </th>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                    protagonista
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    duracion
+                </th>
+                <th scope="col" class="px-6 py-3 dark:bg-gray-800">
+                    resumen
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    foto
+                </th>
+                <th scope="col" class="px-6 py-3 dark:bg-gray-800">
+                    pelGenero
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in peliculas%}
+                <tr class="border-b text-center text-base border-gray-200 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                        {{p.codigo }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{p.titulo }}
+
+                    </td>
+                    <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                        {{p.protagonista }}
+
+                    </td>
+                    <td class="px-6 py-4">
+                        {{p.duracion }}
+                        
+                    </td>
+                    <td class="px-6 py-4 dark:bg-gray-800">
+                        {{p.resumen }}
+
+                    </td>
+                    <td class="px-6 py-4">
+                        
+                        <img src="/media/{{p.foto }}" alt="" width="30" height="7">
+
+                    </td>
+                    <td class="px-6 py-4 dark:bg-gray-800">
+                        {{p.pelGenero }}
+
+                    </td>
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
