@@ -10,7 +10,9 @@
 </head>
 <body>
     <div class="w-full max-w-xs m-[30%] mt-[10%] mx-auto">
-        <form enctype="multipart/form-data" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/agregarPelicula/">
+        
+        <form enctype="multipart/form-data" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/agregarPeliculas/">
+            {% csrf_token %}
             <h3 class=" text-center text-lg">Agregar Pelicula</h3>
             <div class="mb-4">
                 <label class="block  text-gray-700 text-sm font-bold mb-2" for="codigo">
@@ -46,7 +48,7 @@
                 <label class="block  text-gray-700 text-sm font-bold mb-2" for="idGenero">
                     Genero
                 </label>
-                <select name="Genero" id="idGenero">
+                <select name="idGenero" id="idGenero">
                     <option value="">Seleccione</option>
 
                     {% for g in generos %}

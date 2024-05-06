@@ -28,9 +28,10 @@ urlpatterns = [
     path('vistaAgregarGenero/', views.vistaAgregarGenero),
     path('agregarGenero/', views.agregarGenero),
     
+    # peliculas
     path('vistaListarPeliculas/', views.listarPeliculas),
     
-    path('agregarPelicula/', views.agregarPelicula),
+    path('agregarPeliculas/', views.agregarPelicula),
     path('vistaAgregarPeliculas/', views.vistaAgregarPeliculas),
 ]
 

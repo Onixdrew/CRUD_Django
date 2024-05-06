@@ -19,7 +19,7 @@ def vistaAgregarGenero(request):
 def agregarGenero(request):
     
     try:
-        nombre:request.POST['newGenero']
+        nombre=request.POST['newGenero']
         
         # se crea un objeto de tipo genero
         genero=Genero(genNombre=nombre)
@@ -31,7 +31,7 @@ def agregarGenero(request):
     
     retorno={"mensaje":mensaje}
     
-    return render(retorno, 'agregarGenero',retorno )
+    return render(request, 'agregarGenero.html',retorno )
 
 
 # ////////////////////////////////// Peliculas
@@ -39,8 +39,10 @@ def agregarGenero(request):
 
 def listarPeliculas(request):
     peliculas= Peliculas.objects.all()
+    # peliculas= Peliculas.objects.all().values()
     retorno= {"peliculas": list(peliculas)}
     
+    # return JsonResponse(retorno)
     return render(request, 'listarPeliculas.html',retorno )
 
 
@@ -52,16 +54,16 @@ def vistaAgregarPeliculas(request):
 
 
 
-@csrf_exempt
+
 def agregarPelicula(request):
     try:
         codigoCall = request.POST['codigo']
         tituloCall = request.POST['titulo']
-        protagonista = request.POST['protagonista']
+        protagonistaCall = request.POST['protagonista']
         duracionCall = int(request.POST['duracion'])
         resumenCall = request.POST['resumen']
         fotoCall = request.FILES['foto']
-        idGenero = int(request.POST['pelGenero'])
+        idGenero = int(request.POST['idGenero'])
         
         genero = Genero.objects.get(pk=idGenero)
         
@@ -69,7 +71,7 @@ def agregarPelicula(request):
         
         pelicula=Peliculas(codigo=codigoCall,
                            titulo=tituloCall,
-                           protagonista=protagonista,
+                           protagonista=protagonistaCall,
                            duracion=duracionCall,
                            resumen=resumenCall,
                            foto=fotoCall,
@@ -78,8 +80,24 @@ def agregarPelicula(request):
         pelicula.save()
         mensaje="Pelicula agregada correctamente"
         
+        peliculas= Peliculas.objects.all()
+ 
     except Error as error:
         mensaje=str(error)
         
-    retorno={"mensaje":mensaje, "idPelicula":pelicula.id}
-    return JsonResponse(retorno)
+    retorno={"mensaje":mensaje,"peliculas": list(peliculas), "idPelicula":pelicula.id}
+    return render(request, "listarPeliculas.html", retorno)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
