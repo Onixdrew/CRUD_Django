@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Tabla Peliculas</title>
 </head>
 <body>
-    
+
+{% if request.GET.mensaje %}
+ <div>{{ request.GET.mensaje }}</div>
+{% endif %}
 <h1 class='text-center text-2xl text-bold mt-5' >{{mensaje}}</h1>
-<div class="relative overflow-x-auto h-[70vh] shadow-md sm:rounded-lg mt-[4%]  ">
-    <table class="w-auto mx-auto overflow-y-auto  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+<div class=" w-[50%] mx-auto overflow-x-auto h-[70vh] shadow-md sm:rounded-lg mt-[4%]  ">
+    <table class="  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-center  text-gray-700 uppercase dark:text-gray-400">
             <tr class="text-lg border border-black">
                 <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
@@ -32,7 +36,10 @@
                     foto
                 </th>
                 <th scope="col" class="px-6 py-3 dark:bg-gray-800">
-                    pelGenero
+                    Genero
+                </th>
+                <th scope="col" class="px-6 py-3 ">
+                    Acción
                 </th>
             </tr>
         </thead>
@@ -67,6 +74,13 @@
                         {{p.pelGenero }}
 
                     </td>
+                    <td class="px-6 py-4 flex space-x-3 ">
+                        <a href="/consutarPelicula/{{p.id}}/"><button class="border rounded-lg p-2 text-white bg-blue-500">Editar</button></a>
+                        <button onclick="eliminarPelicula('{{p.id}}')" class="border rounded-lg p-2 text-white bg-red-500">Eliminar</button>
+                        
+
+                    </td>
+
                 </tr>
             {% endfor %}
             
@@ -74,5 +88,6 @@
     </table>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </body>
 </html>

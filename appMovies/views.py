@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.db import Error
+from GestioPeliculas import settings
 from appMovies.models import Genero, Peliculas
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-
+import os
+from django.utils.http import urlencode
 # Create your views here.
 
 def inicio(request):
@@ -89,15 +91,61 @@ def agregarPelicula(request):
     return render(request, "listarPeliculas.html", retorno)
 
 
+def consultarPeliculaPorId(request,id):
+    pelicula=Peliculas.objects.get(pk=id)
+    generos= Genero.objects.all()
+    
+    retorno={"pelicula":pelicula, "generos":generos}
+    
+    return render(request, "actualizarPelicula.html", retorno)
 
 
 
+def actualizarPeliculas(request):
+    try:
+        
+        # extraigo el id la pelicula que se va actualizar para usarlo como criterio
+        peliculaUpdate= Peliculas.objects.get(pk=request.POST['idPeliculaUpdate'])
+        
+        peliculaUpdate.codigo = int(request.POST['codigo'])
+        peliculaUpdate.titulo = request.POST['titulo']
+        peliculaUpdate.protagonista = request.POST['protagonista']
+        peliculaUpdate.duracion = int(request.POST['duracion'])
+        peliculaUpdate.resumen = request.POST['resumen']
+        idGenero = request.POST['idGenero']
+        
+        genero = Genero.objects.get(pk=idGenero)
+        peliculaUpdate.pelGenero=genero
+        
+        foto = request.FILES.get('foto')
+        
+        if (foto):
+            os.remove(os.path.join(settings.MEDIA_ROOT +'/'+ str(peliculaUpdate.foto)))
+            
+            peliculaUpdate.foto=foto
+            
+        peliculaUpdate.save()
+        mensaje='Pelicula actualizada'
+    
+    except Error as error:
+        mensaje= str(error)
+        
+    retorno = urlencode({'mensaje': mensaje}) 
+    # return JsonResponse(retorno)
+    return redirect( f"vistaListarPeliculas/?{retorno}")
+        
 
 
-
-
-
-
-
-
+def eliminarPelicula(request, id):
+    
+    try:
+        eliminarMovie= Peliculas.objects.get(pk=id)
+        eliminarMovie.delete()
+        mensaje='Pelicula eliminada Correctamente'
+    
+    except Error as error:
+        mensaje= str(error)
+    retorno = urlencode({'mensaje': mensaje}) 
+    # return JsonResponse(retorno)
+    return redirect( f"vistaListarPeliculas/?{retorno}")
 

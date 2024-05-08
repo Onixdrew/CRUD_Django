@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <title>Document</title>
+</head>
+<body>
+    <div class="w-full max-w-xs m-[30%] mt-[10%] mx-auto">
+        
+        <form enctype="multipart/form-data" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/actualizarPeliculas/">
+            {% csrf_token %}
+            <h3 class=" text-center text-lg">Actualizar Pelicula</h3>
+            <div class="mb-4">
+                <label class="block  text-gray-700 text-sm font-bold mb-2" for="codigo">
+                codigo
+                </label>
+                <input name="codigo" value='{{pelicula.codigo}}' readonly class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="codigo" type="number">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="titulo">
+                    titulo
+                </label>
+                <input name="titulo" value='{{pelicula.titulo}}' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="titulo" type="text" placeholder="Agrega el nuevo genero">
+            </div>
+            <div class="mb-4">
+                <label class="block  text-gray-700 text-sm font-bold mb-2" for="protagonista">
+                    protagonista
+                </label>
+                <input name="protagonista" value='{{pelicula.protagonista}}' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="protagonista" type="text" placeholder="Agrega el nuevo genero">
+            </div>
+            <div class="mb-4">
+                <label class="block l text-gray-700 text-sm font-bold mb-2" for="duracion">
+                    duracion
+                </label>
+                <input name="duracion" value='{{pelicula.duracion}}' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="duracion" type="number" placeholder="Agrega el nuevo genero">
+            </div>
+            <div class="mb-4">
+                <label class="block  text-gray-700 text-sm font-bold mb-2" for="resumen">
+                    resumen
+                </label>
+                <textarea name="resumen" value='{{pelicula.resumen}}' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="resumen" type="text" placeholder="Agrega el nuevo genero"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="block  text-gray-700 text-sm font-bold mb-2" for="idGenero">
+                    Genero
+                </label>
+                <select name="idGenero" id="idGenero">
+                    <option >{{pelicula.pelGenero}}</option>
+
+                    {% for g in generos %}
+                    <option value="{{g.id}}">{{g.genNombre}}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block  text-gray-700 text-sm font-bold mb-2" for="foto">
+                    foto
+                </label>
+                <input name="foto" value='{{pelicula.foto}}' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="foto" type="file" placeholder=" genero">
+            </div>
+
+          <div class="flex items-center justify-between">
+            <button  class="bg-blue-500 mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+               Actualizar
+            </button>
+            
+          </div>
+          <input type="hidden" name="idPeliculaUpdate" value="{{pelicula.id}}">
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+          &copy;2020 Acme Corp. All rights reserved.
+        </p>
+    </div>
+</body>
+</html>
