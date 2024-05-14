@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib import messages
 from django.db import Error
 from GestioPeliculas import settings
 from appMovies.models import Genero, Peliculas
@@ -87,8 +88,8 @@ def agregarPelicula(request):
     except Error as error:
         mensaje=str(error)
         
-    retorno={"mensaje":mensaje,"peliculas": list(peliculas), "idPelicula":pelicula.id}
-    return render(request, "listarPeliculas.html", retorno)
+    retorno={"mensaje":mensaje, "idPelicula":pelicula.id}
+    return redirect("/vistaListarPeliculas/")
 
 
 def consultarPeliculaPorId(request,id):
@@ -130,22 +131,25 @@ def actualizarPeliculas(request):
     except Error as error:
         mensaje= str(error)
         
+    # messages.success(request, 'La película se actualizó correctamente.')
     retorno = urlencode({'mensaje': mensaje}) 
     # return JsonResponse(retorno)
-    return redirect( f"vistaListarPeliculas/?{retorno}")
+    return redirect("/vistaListarPeliculas/")
         
 
 
 def eliminarPelicula(request, id):
     
     try:
+        
         eliminarMovie= Peliculas.objects.get(pk=id)
         eliminarMovie.delete()
         mensaje='Pelicula eliminada Correctamente'
     
     except Error as error:
         mensaje= str(error)
+        
     retorno = urlencode({'mensaje': mensaje}) 
     # return JsonResponse(retorno)
-    return redirect( f"vistaListarPeliculas/?{retorno}")
+    return redirect( "/vistaListarPeliculas/")
 

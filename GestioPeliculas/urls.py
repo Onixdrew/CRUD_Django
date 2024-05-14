@@ -40,7 +40,7 @@ urlpatterns = [
     path('actualizarPeliculas/', views.actualizarPeliculas),
     
     # eliminar
-    path('eliminarPeliculas/<int>:id/', views.eliminarPelicula),
+    path('eliminarPeliculas/<int:id>/', views.eliminarPelicula),
 
 ]
 
